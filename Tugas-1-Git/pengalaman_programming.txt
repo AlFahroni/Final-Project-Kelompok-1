@@ -1,0 +1,18 @@
+Pengalaman programing saya dimulai dari SMK dengan materi HTML dan MySQL tetapi belum terintegrasi jadi hanya website statis
+lanjut kuliah jurusan Sistem Informasi yang benar benar mendalami progamming. progamming yang saya sukai adalah web programming
+awalnya saya mengikuti mata kuliah pemograman java tetapi saya sulit memahaminya dikarenakan code nya yang panjang, baru di semester 3 saya bertemu kembali dengan web programming
+yang awal materi sama seperti di SMK tidak jauh dari HTML tetapi saat kuliah lanjut dengan Javascript dan CSS, disini lah semakin suka dengan web programming
+singkat cerita di semester 8 skripsi saya menggunakan web base "Sistem Informasi Praktek Kerja Lapangan di SMK" dengan HTML, CSS Bootstrap & native, PHP, MySQL, JQuery dan Ajax. alhamdulillah lulus dengan memuaskan
+
+lulus kuliah lanjut dengan mengerjakan pesanan website dari adik tingkat dan teman seangkatan yang meminta tolong untuk dibuatkan website untuk skripsi, yaaah lumayan untuk menyambung hidup
+ada 3 aplikasi Sistem Informasi. tidak hanya mengerjakan website untuk skripsi, saya juga membentuk tim dengan teman saya, nama tim nya "Koding Kita" dengan tujuan membuat pembelajaran coding yang menarik dan seru
+Koding Kita juga menerima jasa pembuatan website, 1 minggu launching ada 3 project website yang dibuat yaitu 
+1. Sistem Diagnosa Buta Warna
+2. Sistem Informasi Traveling (seperti traveloka), dan
+3. Sistem Informasi Jasa Pembuatan Design, Jual Beli Design (seperti freepik.com).
+Setelah 3 projek tersebut selesai Koding Kita off sampai sekarang dikarenakan Saya yang sudah bekerja keluar dari programming yang membuat saya lupa dengan programming, dan teman saya juga bekerja tetapi tetap 
+didunia programing
+
+oh ya lupa, sebelum Koding Kita berdiri, posisi saya berada dalam Programing Full Stack tetapi saya pikir cape juga menjadi Full Stack apalagi saya tidak terlalu kuat di backend
+semenjak Koding Kita berdiri, saya berprofesi sebagai FrontEnd Dev dan teman saya BackEnd Dev walaupun saya dan teman saya belum mengerti apa itu API dan Framework FrontEnd/BackEnd lucu juga sih
+jadi kita benar benar full Pemograman Native
