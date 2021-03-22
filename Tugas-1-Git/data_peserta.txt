@@ -1,0 +1,5 @@
+Data Peserta Sanbercode Bootcamp Vue JS 
+1. Nama: Muchamad Rafi Subhi Fauzi
+2. Email: mrafi.sfauzi@gmail.com
+3. Akun Gitlab: @mrafi.sfauzi
+4. Akun Telegram: @rafi_sf
