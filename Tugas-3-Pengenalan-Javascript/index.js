@@ -2,6 +2,7 @@
 var pertama = "saya sangat senang hari ini";
 var kedua = "belajar javascript itu keren";
 var gabungKalimat = pertama.substr(0, 5)+pertama.substr(12, 7)+kedua.substring(0, 8)+kedua.substring(8, 18).toUpperCase();
+
 console.log(gabungKalimat);
 
 // Soal 2
@@ -11,6 +12,7 @@ var kataKetiga = "4";
 var kataKeempat = "6";
 
 var hasil1 = (parseInt(kataPertama)-parseInt(kataKeempat)) * (parseInt(kataKedua)+parseInt(kataKetiga)); //(10 - 6) * (2 + 4)
+
 console.log(hasil1);
 
 // Soal 3
