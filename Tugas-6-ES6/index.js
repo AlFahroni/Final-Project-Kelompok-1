@@ -11,7 +11,7 @@ const newFunction = (firstName, lastName) => {
     return {
       firstName: firstName,
       lastName: lastName,
-      fullName (){
+      fullName : () => {
         console.log(`${firstName} ${lastName}`);
       }
     }
