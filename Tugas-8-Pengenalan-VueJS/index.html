@@ -1,0 +1,47 @@
+<!-- Soal 1-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{ fullName }}
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+   var vm = new Vue({
+      el: '#app',
+      data: {
+        firstName : 'Tuanku',
+        lastName : 'Imam Bonjol'
+      },
+      computed : {
+        fullName : {
+          get(){
+              return `${this.firstName} ${this.lastName}`;
+          },
+          set(inputName) {            
+            let compName = inputName.split(' ');
+            this.firstName = compName[0];
+            if (compName.length>2){              
+              for(var a = 2; a<compName.length; a++){
+                this.lastName = this.lastName+(' '+compName[a]);
+              }
+            }else if(compName.length==1){
+              this.lastName ='';
+            }else{              
+              this.lastName = compName[1];
+            }
+          }
+        }
+      },
+      methods : {}
+  })
+  </script>
+</body>
+</html>
