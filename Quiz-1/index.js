@@ -1,11 +1,7 @@
 // Soal 1
 var kata = "Aku Gagal Lagi";
 var arrKata = kata.split(' ');
-var jmlKata = 0;
-for(var i=0 ; i<=arrKata.length; i++){
-    jmlKata=i;
-}
-console.log(jmlKata);
+console.log(arrKata.length);
 
 
 

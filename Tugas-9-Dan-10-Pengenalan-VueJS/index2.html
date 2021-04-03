@@ -60,16 +60,28 @@
             panggil(proses,index){
                 switch(proses){
                     case 'tambah' : {                        
-                        score = this.inputKategori[index].score+1;
-                        value = 1;
+                        if(this.inputKategori[index].value!=0){
+                            score = this.inputKategori[index].score-1;
+                            value = 0;
+                        }else{
+                            score = this.inputKategori[index].score+1;
+                            value = 1;
+                        }
+                        
                         break;
                     }
                     case 'kurang' : {
-                        score = this.inputKategori[index].score-1;
-                        value = 1;
+                        if(this.inputKategori[index].value!=0){
+                            score = this.inputKategori[index].score+1;
+                            value = 0;
+                        }else{
+                            score = this.inputKategori[index].score-1;
+                            value = 1;
+                        }
                         break;
                     }
                 }
+                
                 this.inputKategori[index].score = score
                 this.inputKategori[index].value = value
                 console.log(value)
