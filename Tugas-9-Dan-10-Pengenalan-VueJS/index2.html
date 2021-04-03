@@ -1,0 +1,90 @@
+<!-- Soal 2-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+        
+    
+    <div class="container p-5">
+        <div  v-for="(kategori, index) in inputKategori">
+            <div class="form-group">
+                <button v-on:click="panggil('tambah',index)">+</button>
+                <h5 style="padding: 0;"> {{kategori.pesan}} || {{kategori.tanggal}} || Score : {{kategori.score}}</h5>
+                <button v-on:click="panggil('kurang',index)">-</button>
+            </div>            
+        </div>
+        <textarea id="nameInput" rows="4" cols="37" v-model:value="cari" v-on:keyup.enter="tambahKategori"></textarea>
+    </div>
+    
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            cari : '',
+            index_buku : '',
+            inputKategori : [
+                {
+                    pesan : 'komentar 1 komentar 1 komentar 1',
+                    tanggal : '14-10-2021',
+                    score : 0,
+                    value : 0
+                },
+                {
+                    pesan : 'komentar 2 komentar 2 komentar 2',
+                    tanggal : '14-10-2021',
+                    score : 5,
+                    value : 0
+                },
+                {
+                    pesan : 'komentar 3 komentar 3 komentar 3',
+                    tanggal : '14-10-2021',
+                    score : 5,
+                    value : 0
+                }
+            ],
+        },
+        computed :{
+
+        },
+        methods : {
+            panggil(proses,index){
+                switch(proses){
+                    case 'tambah' : {                        
+                        score = this.inputKategori[index].score+1;
+                        value = 1;
+                        break;
+                    }
+                    case 'kurang' : {
+                        score = this.inputKategori[index].score-1;
+                        value = 1;
+                        break;
+                    }
+                }
+                this.inputKategori[index].score = score
+                this.inputKategori[index].value = value
+                console.log(value)
+            },
+            tambahKategori(){
+                this.inputKategori.push({
+                    pesan : this.cari,
+                    tanggal : '14-10-2021',
+                    score : 0,
+                    value : 0
+                }) 
+                document.getElementById('nameInput').value='';  
+             }
+        }
+    });
+  </script>
+</body>
+</html>
