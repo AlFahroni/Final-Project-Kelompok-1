@@ -117,7 +117,9 @@
                     }
                         axios(config)
                         .then ( (response) => {
+                            this.clearForm()
                             this.getBlogs()
+                            
                             console.log(response.data)
                         })
                         .catch ( (error) => {
