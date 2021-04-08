@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+   <div class="container">
+        <div id="app">
+            <form @submit.prevent="submitForm()">
+                <div id="errorMessage" v-if="errors.length>0">
+                    <b>Please correct the following errors : </b>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li v-for="error in errors">{{error}}</li>
+                        </ul>
+                    </div>
+                </div>         
+                <div class="form-group">                    
+                    <label>Nama :</label><br>
+                    <input type="text" class="form-control" name="nama" ref="nama" v-model="nama" :disabled="buttonStatus=='upload'">
+                </div>
+                <div class="form-group">                    
+                    <label>Nomor HP :</label><br>
+                    <input type="text" class="form-control" name="noHP" ref="notelepon" v-model="notelepon" :disabled="buttonStatus=='upload'">
+                </div>
+                <div class="form-group">                    
+                    <label>Alamat :</label><br>
+                    <textarea name="alamat" class="form-control" ref="alamat" cols="30" rows="5" v-model="alamat" style="resize: none;" :disabled="buttonStatus=='upload'"></textarea>
+                </div>
+                <div v-if="buttonStatus == 'submit'">
+                    <input type="submit" class="btn btn-success" value="SUBMIT">
+                </div>
+                <div v-else-if="buttonStatus == 'edit'">
+                    <input type="button" class="btn btn-warning" @click="updateData(idUser)" value="EDIT">
+                    <input type="button" class="btn btn-secondary" @click="clearForm" value="CANCEL">
+                </div>
+                <div v-else-if="buttonStatus == 'upload'">
+                    <input type="file" name="photo" ref="photo" class="form-control-file mb-3">
+                    <input type="button" class="btn btn-primary" @click="submitPhoto(idPhoto)" value="UPLOAD">
+                    <input type="button" class="btn btn-secondary" @click="clearForm" value="CANCEL">
+                </div>
+            </form>
+                <table width ="100%" class="table table-bordered" style="margin-top: 20px;">
+                    <tr class="align-middle">
+                        <td width="20">No</td>
+                        <td width="250">Nama</td>
+                        <td width="250">Alamat</td>
+                        <td width="100">No Hp</td>
+                        <td width="130">Image</td>
+                        <td width="250">Aksi</td>
+                    </tr>
+                    <tr v-for="(blog , index) in dataBlogs">
+                        <td>{{index+1}}</td>
+                        <td>{{blog.name}}</td>
+                        <td>{{blog.address}}</td>
+                        <td>{{blog.no_hp}}</td>
+                        <td><img :src="blog.photo_profile ? photo + blog.photo_profile : 'https://dummyimage.com/16:9x1080'" width="150"></td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" @click="editBlog(blog)">Edit</button>
+                            <button class="btn btn-sm btn-danger" @click="deleteData(blog.id)">Delete</button>
+                            <button class="btn btn-sm btn-primary" @click="uploadPhoto(blog)">Upload Foto</button>
+                        </td>
+                    </tr>
+                </table>
+            
+        </div>
+   </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var vm = new Vue ({
+            el : '#app',
+            data : {
+                nama : '',
+                alamat : '',
+                notelepon : '',
+                errors : [],
+                dataBlogs : [],
+                photo :  'http://demo-api-vue.sanbercloud.com/',
+                buttonStatus : 'submit',
+                idUser : null,
+                idPhoto : null
+            },
+            methods : {
+                validationForm : function(){
+                    this.errors = []
+                    if (this.nama.length < 5) {
+                        this.errors.push("Nama Minimal 5 Karakter")
+                        this.$refs.nama.focus()
+                    }
+                    if (this.alamat.length < 10) {
+                        this.errors.push("Alamat Minimal 10 Karakter")
+                        this.$refs.alamat.focus()
+                    }
+                    if (this.notelepon.length < 8) {
+                        this.errors.push("Nomor HP minimal 9 Karakter")
+                        this.$refs.notelepon.focus()
+                    }
+                },
+                submitForm : function (){
+                    this.validationForm()
+                    let dataForm = new FormData()
+                    dataForm.append('name',this.nama)
+                    dataForm.append('address',this.alamat)
+                    dataForm.append('no_hp',this.notelepon)
+
+                    if(this.errors.length===0){
+                        const config = {
+                        method : "post",
+                        url : "http://demo-api-vue.sanbercloud.com/api/member",
+                        data : dataForm
+                    }
+                        axios(config)
+                        .then ( (response) => {
+                            this.clearForm()
+                            this.getBlogs()
+                            
+                            console.log(response.data)
+                        })
+                        .catch ( (error) => {
+                            console.log(error)
+                        })    
+                        alert("Terimakasih Anda Telah Memasukan Data Dengan Benar")
+                        
+                    }                    
+                },
+                getBlogs : function(){
+                    const config = {
+                        method : "get",
+                        url : "http://demo-api-vue.sanbercloud.com/api/member"
+                    }
+                    axios(config)
+                        .then ( (response) => {
+                            this.dataBlogs=response.data.members
+                        })
+                        .catch ( (error) => {
+                            console.log(error)
+                        })
+                },
+                editBlog : function (dtblog){
+                    this.nama = dtblog.name
+                    this.alamat = dtblog.address
+                    this.notelepon = dtblog.no_hp
+                    this.buttonStatus = 'edit'
+                    this.idUser = dtblog.id
+                    console.log(this.idUser)
+
+                },
+                updateData : function(indeks){
+                    this.validationForm()
+                    let formData = new FormData()
+                        formData.append('name',this.nama)
+                        formData.append('address',this.alamat)
+                        formData.append('no_hp',this.notelepon)
+
+                    if(this.errors.length===0){
+                        const config = {
+                            method : "post",
+                            url : `http://demo-api-vue.sanbercloud.com/api/member/${indeks}`,
+                            params : { _method : "PUT"},
+                            data : formData   
+                        }
+                        axios(config)
+                        .then ( (response) => {
+                            this.getBlogs()                            
+                            this.clearForm()
+                            alert(response.data.message)
+                            
+                        })
+                        .catch ( (error) => {
+                            console.log(error)
+                        })
+                    }
+                    
+                   
+                },
+                uploadPhoto : function(dtblog){
+                    this.nama = dtblog.name
+                    this.alamat = dtblog.address
+                    this.notelepon = dtblog.no_hp
+                    this.buttonStatus = 'upload'
+                    this.idPhoto = dtblog.id
+                    console.log(this.idPhoto)
+                },
+                submitPhoto : function (indeks) {
+                    let file = this.$refs.photo.files[0]
+                    let formData = new FormData()
+                    formData.append('photo_profile',file)
+                    let config = {
+                        method : "post",
+                        url : `http://demo-api-vue.sanbercloud.com/api/member/${indeks}/upload-photo-profile`,
+                        data : formData
+                        
+                    }
+                    axios(config)
+                        .then ( (response) => {
+                            this.getBlogs()
+                            this.clearForm()
+                            alert(response.data.message)
+                            
+                        })
+                        .catch ( (error) => {
+                            console.log(error)
+                        })
+                },
+                deleteData : function(indeks){
+                    const config = {
+                        method : "post",
+                        url : `http://demo-api-vue.sanbercloud.com/api/member/${indeks}`,
+                        params : { _method : "DELETE"}
+                        
+                    }
+                    axios(config)
+                        .then ( (response) => {
+                            this.getBlogs()
+                            alert(response.data.message)
+                            
+                        })
+                        .catch ( (error) => {
+                            console.log(error)
+                        })
+                },                
+                clearForm : function (){
+                    this.nama = ''
+                    this.alamat = ''
+                    this.notelepon = ''
+                    this.buttonStatus = 'submit'
+                    this.idUser = null
+                    this.idPhoto = null
+                }           
+            },
+            
+            created(){
+                    this.getBlogs()
+                }
+            
+        })
+    </script>
+</body>
+</html>
