@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>     
+    
+    <div id="app">  
+        <div class="container">
+            <h1 class="mb-3">Tugas Vue Router</h1>        
+            <router-link class="btn btn-secondary btn-sm" to="/">Home</router-link>
+            <router-link class="btn btn-secondary btn-sm" to="/halaman1">Halaman 1</router-link>        
+            <router-link class="btn btn-secondary btn-sm" to="/halaman2">Halaman 2</router-link>
+            <router-link class="btn btn-secondary btn-sm" to="/halaman3">Halaman 3</router-link>      
+            <hr>
+            <router-view></router-view>
+        </div>
+        
+    </div>
+    
+    <script type="module">
+        import { Component1 } from './ComponentSatu.js'
+        import { Component2 } from './ComponentDua.js'
+        import { Component3 } from './ComponentTiga.js'
+
+        const Home = { template: '<div>Welcome!</div>' }
+
+        const routes = [
+            { path: '/', component: Home, alias: '/home' },
+            { path: '/halaman1', component: Component1 },
+            { path: '/halaman2', component: Component2, meta : {login:true} },
+            { path: '/halaman3', component: Component3, meta : {login:true}},
+            { path: '*', redirect: '/' }
+        ]
+
+        
+        const router = new VueRouter({
+        routes 
+        })
+
+        
+        router.beforeEach((to, from, next) => {
+            if (to.matched.some(record => record.meta.login)){
+                alert('Silahkan Login Terlebih Dahulu')
+                next(false)
+            }else{
+                next()
+            }
+            
+        })
+
+        var vm = new Vue({ 
+        el: '#app', 
+        router, 
+        })
+    </script>
+</body>
+</html>
