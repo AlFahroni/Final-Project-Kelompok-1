@@ -29,13 +29,13 @@
         import { Component2 } from './ComponentDua.js'
         import { Component3 } from './ComponentTiga.js'
 
-        const Home = { template: '<div>Welcome!</div>' }
+        const Home = { template: '<div class="text-primary"><h2>Welcome!</h2></div>' }
 
         const routes = [
             { path: '/', component: Home, alias: '/home' },
             { path: '/halaman1', component: Component1 },
-            { path: '/halaman2', component: Component2, meta : {login:true} },
-            { path: '/halaman3', component: Component3, meta : {login:true}},
+            { path: '/halaman2', component: Component2,name : 'user', meta : {login: true} },
+            { path: '/halaman3', component: Component3,name : 'admin', meta : {login: true}},
             { path: '*', redirect: '/' }
         ]
 
@@ -47,17 +47,37 @@
         
         router.beforeEach((to, from, next) => {
             if (to.matched.some(record => record.meta.login)){
-                alert('Silahkan Login Terlebih Dahulu')
-                next(false)
+                let login = false
+                let userStatus = 'admin'
+
+                if (!login) {
+                    alert('Silahkan Login')
+                    next('/')
+                }else{
+                    next()
+                }
+
+                if (userStatus==to.name) {
+                    next()
+                }else{
+                    alert('Kamu Bukan Admin')
+                    next('/')
+                }
+                
+                
             }else{
                 next()
             }
-            
         })
+
+        
 
         var vm = new Vue({ 
         el: '#app', 
         router, 
+        data : {
+            name : 'login'
+        }
         })
     </script>
 </body>
